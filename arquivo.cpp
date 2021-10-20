@@ -42,9 +42,24 @@ void Arquivo::add (Pessoa* record) {
         cout << "CHAVE JA EXISTE\n";
         return;
     }
-    file.seekp(0,ios::end);
-    file.write((char *) record, sizeof(Pessoa));
-    file.flush(); 
+    if (this->header.firstAv == -1) {
+        file.seekp(0,ios::end);
+        file.write((char *) record, sizeof(Pessoa));
+        file.flush(); 
+    }
+    else {
+        int fa = this->header.firstAv*sizeof(Pessoa)+sizeof(Header);
+        int fa_new;
+        file.seekg(fa+1,ios::beg);
+        file.read((char*) &fa_new, sizeof(int));
+        file.seekg(0,ios::beg);
+        file.seekp(fa, ios::beg);
+        file.write((char *) record, sizeof(Pessoa));
+        file.seekp(0,ios::beg);
+        this->header.firstAv = fa_new;
+        file.write((char*) &(this->header), sizeof(Header));
+        file.flush();
+    }
 }
 
 Pessoa* Arquivo::readByKey (int key) {
