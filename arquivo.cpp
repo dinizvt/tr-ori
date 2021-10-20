@@ -25,39 +25,27 @@ Arquivo::~Arquivo()
 
 int Arquivo::findKey (int key) {
     file.seekg(0,ios::beg);
-    for (int i=0; file.good(); i++) {
-        printf("%d\n",i);
+    int pos = -1;
+    for (int i=0; file.good() && pos == -1; i++) {
         file.seekg(sizeof(Header) + i*sizeof(Pessoa), ios::beg);
         if (file.peek() == key) {
-            return file.tellg();
+            pos = file.tellg();
         }
     }
-    return -1;
+    file.seekg(0,ios::beg);
+    return pos;
 }
 
 void Arquivo::add (Pessoa* record) {
-    cout << file.fail() << endl;
     int pos = this->findKey(record->key);
     if (pos != -1) {
         cout << "CHAVE JA EXISTE\n";
         return;
     }
-    if (this->header.firstAv == -1) {
-        file.seekp(0,ios::end);
-        file.write((char *) (record), sizeof(Pessoa));
-        file.flush(); 
-    }
-    else {
-        int fa = this->header.firstAv;
-        int fa_pos = sizeof(Header)+fa*sizeof(Pessoa);
-        int na;
-        file.seekg(fa_pos+1, ios::beg);
-        file.read((char*) &na, sizeof(int));
-        this->header.firstAv = na;
-        file.seekp(fa_pos, ios::beg);
-        file.write((char *) (record), sizeof(Pessoa));
-        file.flush(); 
-    }
+    file.seekp(0,ios::end);
+    cout << file.fail() << file.tellp() << endl;
+    file.write((char *) record, sizeof(Pessoa));
+    cout << file.fail() << endl;
     file.flush(); 
 }
 
