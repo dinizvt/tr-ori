@@ -1,0 +1,2 @@
+c++ *.cpp -o main.bin
+./main.bin
