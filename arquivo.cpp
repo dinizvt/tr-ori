@@ -5,7 +5,7 @@ using namespace std;
 Arquivo::Arquivo(string filename)
 {
     this->filename = filename;
-    this->file.open(filename, ios::binary | ios::in | ios::out | ios::app);
+    this->file.open(filename, ios::binary | ios::in | ios::out | ios::ate);
     this->file.seekg(0, ios::end);  
     if (this->file.tellg() == 0) {
         this->header.firstAv = -1;
@@ -43,9 +43,7 @@ void Arquivo::add (Pessoa* record) {
         return;
     }
     file.seekp(0,ios::end);
-    cout << file.fail() << file.tellp() << endl;
     file.write((char *) record, sizeof(Pessoa));
-    cout << file.fail() << endl;
     file.flush(); 
 }
 

@@ -17,9 +17,8 @@ void writeUntilStop (Arquivo* f) {
 }
 
 int main (int argc, char** argv) {
-
     Arquivo* f = new Arquivo("teste");
     writeUntilStop(f);
-    //f->rm(2);
+    f->rm(2);
     f->readByKey(2);
 }
