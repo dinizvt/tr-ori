@@ -19,6 +19,7 @@ void writeUntilStop (Arquivo* f) {
 void menu(Arquivo *f)
 {
     Pessoa* p;
+    int key;
     bool loop = true;
     int escolha;
     while(loop)
@@ -39,14 +40,12 @@ void menu(Arquivo *f)
             writeUntilStop(f);
             break;
         case 2:
-            int key;
             cout << " qual a key que gostaria de excluir? ";
             cin >> key;
             f->rm(key);
             break;
         
         case 3:
-            int key;
             cout << " qual a key que gostaria de buscar? ";
             cin >> key; 
             p = f->readByKey(key);

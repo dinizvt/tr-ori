@@ -1,5 +1,10 @@
 #include "pessoa.h"
 
+/**
+ * @brief 
+ * 
+ * @return Pessoa* 
+ */
 Pessoa* inputRecord () {
     Pessoa* record = new Pessoa;
     cout << "Insira a chave\n";
@@ -11,11 +16,19 @@ Pessoa* inputRecord () {
         return NULL;
     }
     cout << "Insira o nome\n";
-    cin.getline(record->firstname, 10);
-    printf("Nome Escolhido: %s\n", record->firstname);
+    cin.getline(record->firstname, FIRSTNAME_SIZE);
     cout << "Insira o sobrenome\n";
-    cin.getline(record->lastname, 10);
-    printf("Sobrenome Escolhido: %s\n", record->lastname);
+    cin.getline(record->lastname, LASTNAME_SIZE);
+    cout << "Insira o endereco\n";
+    cin.getline(record->address, ADDRESS_SIZE);
+    cout << "Insira a cidade\n";
+    cin.getline(record->city, CITY_SIZE);
+    cout << "Insira o estado\n";
+    cin.getline(record->state, STATE_SIZE);
+    cout << "Insira o cep\n";
+    cin.getline(record->zip, ZIP_SIZE);
+    cout << "Insira o telefone\n";
+    cin.getline(record->phone, PHONE_SIZE);
     return record;
 }
 

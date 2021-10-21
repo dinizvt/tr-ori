@@ -12,12 +12,13 @@ typedef struct header {
 
 
 class Arquivo
+// class responsavel por gerenciar inserção remoção e consultas ao arquivo
 {
 private:
-    fstream file;
-    string filename;
-    Header header;
-    int findKey (int key);
+    fstream file; //stream do arquivo
+    string filename; //nome do arquivo
+    Header header; //cabecalho do arquivo
+    int findKey (int key); 
 public:
     void add (Pessoa* record);
     void rm (int key);
